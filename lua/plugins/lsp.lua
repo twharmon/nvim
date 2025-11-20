@@ -14,7 +14,7 @@ return {
         -- In v2.0, 'automatic_enable = true' is the default.
         -- It automatically runs vim.lsp.enable() for any server installed by Mason.
         require("mason-lspconfig").setup({
-            ensure_installed = { "lua_ls", "ts_ls", "pyright", "eslint", "svelte" },
+            ensure_installed = { "lua_ls", "ts_ls", "pyright", "eslint", "svelte", "gopls" },
             automatic_installation = true,
         })
 
