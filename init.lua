@@ -44,111 +44,111 @@ vim.keymap.set("v", "<C-c>", "gc", { desc = "Toggle Comment", remap = true })
 require("config.lazy")
 
 vim.diagnostic.config({
-	signs = {
-		text = {
-			[vim.diagnostic.severity.ERROR] = "",
-			[vim.diagnostic.severity.WARN] = "",
-			[vim.diagnostic.severity.HINT] = "",
-			[vim.diagnostic.severity.INFO] = "",
-		},
-		severity = {
-			min = vim.diagnostic.severity.HINT,
-		},
-	},
-	underline = {
-		severity = {
-			min = vim.diagnostic.severity.HINT,
-		},
-	},
-	jump = {
-		severity = {
-			min = vim.diagnostic.severity.HINT,
-		},
-	},
-	float = {
-		severity = {
-			min = vim.diagnostic.severity.HINT,
-		},
-		border = "rounded",
-		wrap = true,
-	},
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+            [vim.diagnostic.severity.INFO] = "",
+        },
+        severity = {
+            min = vim.diagnostic.severity.HINT,
+        },
+    },
+    underline = {
+        severity = {
+            min = vim.diagnostic.severity.HINT,
+        },
+    },
+    jump = {
+        severity = {
+            min = vim.diagnostic.severity.HINT,
+        },
+    },
+    float = {
+        severity = {
+            min = vim.diagnostic.severity.HINT,
+        },
+        border = "rounded",
+        wrap = true,
+    },
 })
 
 require("catppuccin").setup({
-	flavour = "auto",
-	custom_highlights = function(colors)
-		return {
-			CursorLineNr = { bg = "#2a2b3c", fg = colors.lavender, style = { "bold" } },
-			CursorLineSign = { bg = "#2a2b3c", fg = colors.lavender, style = { "bold" } },
-			NormalFloat = { bg = colors.base },
-			FloatBorder = { bg = colors.base, fg = colors.text },
-			DiagnosticLineNrError = { fg = colors.red, style = { "bold" } },
-			DiagnosticLineNrWarn = { fg = colors.yellow, style = { "bold" } },
-			DiagnosticLineNrInfo = { fg = colors.blue, style = { "bold" } },
-			DiagnosticLineNrHint = { fg = colors.teal, style = { "bold" } },
-		}
-	end,
+    flavour = "auto",
+    custom_highlights = function(colors)
+        return {
+            CursorLineNr = { bg = "#2a2b3c", fg = colors.lavender, style = { "bold" } },
+            CursorLineSign = { bg = "#2a2b3c", fg = colors.lavender, style = { "bold" } },
+            NormalFloat = { bg = colors.base },
+            FloatBorder = { bg = colors.base, fg = colors.text },
+            DiagnosticLineNrError = { fg = colors.red, style = { "bold" } },
+            DiagnosticLineNrWarn = { fg = colors.yellow, style = { "bold" } },
+            DiagnosticLineNrInfo = { fg = colors.blue, style = { "bold" } },
+            DiagnosticLineNrHint = { fg = colors.teal, style = { "bold" } },
+        }
+    end,
 })
 vim.cmd.colorscheme("catppuccin")
 
 require("lualine").setup({
-	options = {
-		icons_enabled = false,
-		section_separators = "",
-		component_separators = "",
-		refresh = {
-			statusline = 250,
-		},
-	},
-	sections = {
-		lualine_a = { "mode" },
-		lualine_b = { "branch" },
-		lualine_c = {
-			"filename",
-			{
-				"diagnostics",
-				symbols = {
-					error = " ● ",
-					warn = " ● ",
-					info = " ● ",
-					hint = " ● ",
-				},
-				colored = true,
-				source = "nvim_lsp",
-			},
-		},
-		lualine_x = { "selectioncount", "searchcount" },
-		lualine_z = {
-			{
-				function()
-					return "%l:%c / %L"
-				end,
-				padding = { left = 1, right = 1 }, -- Optional: Adjust outer padding
-			},
-		},
-		lualine_y = {
-			{
-				"filetype",
-				color = { gui = "bold" },
-			},
-		},
-	},
+    options = {
+        icons_enabled = false,
+        section_separators = "",
+        component_separators = "",
+        refresh = {
+            statusline = 250,
+        },
+    },
+    sections = {
+        lualine_a = { "mode" },
+        lualine_b = { "branch" },
+        lualine_c = {
+            "filename",
+            {
+                "diagnostics",
+                symbols = {
+                    error = " ● ",
+                    warn = " ● ",
+                    info = " ● ",
+                    hint = " ● ",
+                },
+                colored = true,
+                source = "nvim_lsp",
+            },
+        },
+        lualine_x = { "selectioncount", "searchcount" },
+        lualine_z = {
+            {
+                function()
+                    return "%l:%c / %L"
+                end,
+                padding = { left = 1, right = 1 }, -- Optional: Adjust outer padding
+            },
+        },
+        lualine_y = {
+            {
+                "filetype",
+                color = { gui = "bold" },
+            },
+        },
+    },
 })
 
 local function handle_esc()
-	vim.cmd.nohlsearch()
-	local closed_count = 0
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		local config = vim.api.nvim_win_get_config(win)
-		if config.relative ~= "" then
-			vim.api.nvim_win_close(win, false)
-			closed_count = closed_count + 1
-		end
-	end
-	vim.cmd("echo ''")
-	if closed_count == 0 then
-		vim.cmd("normal! " .. vim.api.nvim_replace_termcodes("<Esc>", true, true, true))
-	end
+    vim.cmd.nohlsearch()
+    local closed_count = 0
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local config = vim.api.nvim_win_get_config(win)
+        if config.relative ~= "" then
+            vim.api.nvim_win_close(win, false)
+            closed_count = closed_count + 1
+        end
+    end
+    vim.cmd("echo ''")
+    if closed_count == 0 then
+        vim.cmd("normal! " .. vim.api.nvim_replace_termcodes("<Esc>", true, true, true))
+    end
 end
 vim.keymap.set("n", "<Esc>", handle_esc, { desc = "Close all floating windows" })
 
@@ -157,48 +157,41 @@ local ns = vim.api.nvim_create_namespace("DiagnosticLineNr")
 
 -- Map severity to Highlight Groups (using Catppuccin's groups)
 local severity_hl = {
-	[vim.diagnostic.severity.ERROR] = "DiagnosticLineNrError",
-	[vim.diagnostic.severity.WARN] = "DiagnosticLineNrWarn",
-	[vim.diagnostic.severity.INFO] = "DiagnosticLineNrInfo",
-	[vim.diagnostic.severity.HINT] = "DiagnosticLineNrHint",
+    [vim.diagnostic.severity.ERROR] = "DiagnosticLineNrError",
+    [vim.diagnostic.severity.WARN] = "DiagnosticLineNrWarn",
+    [vim.diagnostic.severity.INFO] = "DiagnosticLineNrInfo",
+    [vim.diagnostic.severity.HINT] = "DiagnosticLineNrHint",
 }
 
 vim.api.nvim_create_autocmd("DiagnosticChanged", {
-	callback = function(args)
-		local buf = args.buf
-		local diagnostics = args.data.diagnostics
-
-		-- 1. Clear existing line number highlights
-		vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
-
-		-- 2. Find the "worst" diagnostic per line
-		-- (If a line has an Error and a Warn, we want to show Red, not Yellow)
-		local line_severity = {}
-		for _, d in ipairs(diagnostics) do
-			local line = d.lnum
-			local current = line_severity[line]
-			if not current or d.severity < current then -- Lower val = Higher severity
-				line_severity[line] = d.severity
-			end
-		end
-
-		-- 3. Apply the highlight to the line number
-		for line, severity in pairs(line_severity) do
-			local hl_group = severity_hl[severity]
-			vim.api.nvim_buf_set_extmark(buf, ns, line, 0, {
-				number_hl_group = hl_group,
-				priority = 100,
-			})
-		end
-	end,
+    callback = function(args)
+        local buf = args.buf
+        local diagnostics = args.data.diagnostics
+        vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+        local line_severity = {}
+        for _, d in ipairs(diagnostics) do
+            local line = d.lnum
+            local current = line_severity[line]
+            if not current or d.severity < current then -- Lower val = Higher severity
+                line_severity[line] = d.severity
+            end
+        end
+        for line, severity in pairs(line_severity) do
+            local hl_group = severity_hl[severity]
+            vim.api.nvim_buf_set_extmark(buf, ns, line, 0, {
+                number_hl_group = hl_group,
+                priority = 100,
+            })
+        end
+    end,
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function(args)
-		vim.lsp.buf.format({
-			bufnr = args.buf,
-			lsp_fallback = true,
-		})
-	end,
+    pattern = "*",
+    callback = function(args)
+        vim.lsp.buf.format({
+            bufnr = args.buf,
+            lsp_fallback = true,
+        })
+    end,
 })
